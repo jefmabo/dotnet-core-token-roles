@@ -11,9 +11,9 @@ namespace Api.Extensions
     {
         public static IServiceCollection AddToken(this IServiceCollection services)
         {
-            var signingConfigurations = new SigningConfiguration();
-            services.AddSingleton(signingConfigurations);
-
+            var signingConfiguration = new SigningConfiguration();
+            services.AddSingleton(signingConfiguration);
+            
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -22,11 +22,11 @@ namespace Api.Extensions
             .AddJwtBearer(bearerOptions =>
            {
                var paramsValidation = bearerOptions.TokenValidationParameters;
-               paramsValidation.IssuerSigningKey = signingConfigurations.Key;
+               paramsValidation.IssuerSigningKey = signingConfiguration.Key;
+               paramsValidation.ValidAudience = "someAudience";
+               paramsValidation.ValidIssuer = "someIssuer";
                paramsValidation.ValidateIssuerSigningKey = true;
                paramsValidation.ValidateLifetime = true;
-               paramsValidation.ValidAudience = "SomeIssuer";
-               paramsValidation.ValidIssuer = "SomeAudience";
                paramsValidation.ClockSkew = TimeSpan.Zero;
            });
 

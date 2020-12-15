@@ -18,13 +18,13 @@ namespace Api.Services
         {
             DateTime criationDate = DateTime.Now;
             DateTime expirationDate = criationDate + TimeSpan.FromSeconds(1200);
-
+            
             var handler = new JwtSecurityTokenHandler();
             var securityToken = handler.CreateToken(
                 new SecurityTokenDescriptor
                 {
-                    Issuer = "SomeIssuer",
-                    Audience = "SomeAudience",
+                    Issuer = "someIssuer",
+                    Audience = "someAudience",
                     SigningCredentials = signingConfiguration.SigningCredentials,
                     NotBefore = criationDate,
                     Expires = expirationDate,
