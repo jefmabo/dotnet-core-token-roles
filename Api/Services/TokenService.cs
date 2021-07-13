@@ -18,7 +18,7 @@ namespace Api.Services
         {
             DateTime criationDate = DateTime.Now;
             DateTime expirationDate = criationDate + TimeSpan.FromSeconds(1200);
-            
+
             var handler = new JwtSecurityTokenHandler();
             var securityToken = handler.CreateToken(
                 new SecurityTokenDescriptor
@@ -32,6 +32,7 @@ namespace Api.Services
                         new Claim[]
                         {
                             new Claim(ClaimTypes.Role, role),
+                            new Claim("otherInfos", "{'name':'some name', 'email': 'some@email.com', 'expirationDate' : '"+ expirationDate +"'}")
                         })
                 });
 
